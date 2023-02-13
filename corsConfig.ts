@@ -1,4 +1,4 @@
 export const corsConfig = {
-  origin: ["http://localhost:3000"],
+  origin: ["http://localhost:4200"],
   methods: ["GET", "PATCH", "PUT", "POST", "DELETE", "OPTIONS"],
 };
