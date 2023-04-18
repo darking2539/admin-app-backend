@@ -4,7 +4,7 @@ import path from "path";
 import { config } from "dotenv";
 
 import { corsConfig } from "../corsConfig";
-import { connectDb } from "./database";
+import { connectToDB } from "./database/index";
 import router from "./routes";
 
 const app: Express = express();
@@ -15,12 +15,12 @@ app.use(express.urlencoded({ extended: false }));
 
 config({ path: path.resolve(__dirname, ".env") });
 
-connectDb();
+connectToDB();
 
 app.use("/api", router);
 
 app.use((req: Request, res: Response) => {
-  res.status(404).send("Page Not Found");
+  res.status(404).send("Page Not Found in Admin-TodoApp");
 });
 
 app.listen(process.env.APP_PORT || 8080, () => {
