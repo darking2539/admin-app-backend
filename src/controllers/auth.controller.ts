@@ -24,3 +24,14 @@ export const Register = async (req: Request, res: Response): Promise<void> => {
     res.status(500).send(error.message);
   }
 };
+
+
+export const Profile = async (req: Request, res: Response): Promise<void> => {
+  const { userData } = req.body;
+  try {
+
+    res.status(200).send(userData);
+  } catch (error: any) {
+    res.status(500).send(error.message);
+  }
+};
