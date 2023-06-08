@@ -7,24 +7,25 @@ config({ path: path.resolve(__dirname, "../../.env") });
 
 const secretKey: Secret = process.env.JWT_SECRET_KEY || "";
 
-export interface CustomRequest extends Request {
-  admin: string | JwtPayload;
-}
-
 export const createJWTToken = async (
-  adminId: number,
-  adminName: string
+  username: string,
+  email: string
 ): Promise<string> => {
   const token = jwt.sign(
-    { id: adminId.toString(), name: adminName },
+    { username: username, email: email },
     secretKey,
     {
-      expiresIn: "2 days",
+      expiresIn: "1 hours",
     }
   );
 
   return token;
 };
+
+export interface CustomRequest extends Request {
+  username: string | JwtPayload;
+  email: string | JwtPayload;
+}
 
 export const auth = async (
   req: Request,
@@ -39,7 +40,7 @@ export const auth = async (
     }
 
     const decoded = jwt.verify(token, secretKey);
-    (req as CustomRequest).admin = decoded;
+    req.body.userData = decoded
 
     next();
   } catch (err) {

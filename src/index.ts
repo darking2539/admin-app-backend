@@ -24,5 +24,5 @@ app.use((req: Request, res: Response) => {
 });
 
 app.listen(process.env.APP_PORT || 8080, () => {
-  console.log(`server is on port`);
+  console.log(`server is on port ${process.env.APP_PORT || 8080}`);
 });

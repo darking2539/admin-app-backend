@@ -1,12 +1,8 @@
-import { dataSource } from "./data-source";
+const mongoose = require("mongoose");
+const mongoDBURI = process.env.MONGODB_URI || "mongodb://admin:password@localhost:27017/admin";
 
 export const connectToDB = () => {
-  dataSource
-    .initialize()
-    .then(() => {
-      console.log("Data Source has been initialized!");
-    })
-    .catch((err) => {
-      console.error("Error during Data Source initialization", err);
-    });
+  mongoose.connect(mongoDBURI,{ useNewUrlParser: true })
+  .then(() => console.log("MongoDB successfully connected"))
+  .catch((err: any) => console.log(err));
 };
